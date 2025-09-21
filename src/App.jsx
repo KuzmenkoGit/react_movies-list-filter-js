@@ -11,10 +11,12 @@ export const App = () => {
       return moviesFromServer;
     }
 
+    const condition = query.toLowerCase().trim();
+
     return moviesFromServer.filter(movie => {
       return (
-        movie.title.toLowerCase().includes(query.toLowerCase().trim()) ||
-        movie.description.toLowerCase().includes(query.toLowerCase().trim())
+        movie.title.toLowerCase().includes(condition) ||
+        movie.description.toLowerCase().includes(condition)
       );
     });
   };
@@ -36,8 +38,8 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={e => {
-                  setQuery(e.currentTarget.value);
+                onChange={event => {
+                  setQuery(event.currentTarget.value);
                 }}
               />
             </div>
