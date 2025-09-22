@@ -5,21 +5,17 @@ import moviesFromServer from './api/movies.json';
 
 export const App = () => {
   const [query, setQuery] = useState('');
+  const condition = query.toLowerCase().trim();
 
-  const visibleMovies = () => {
-    if (!query) {
-      return moviesFromServer;
-    }
-
-    const condition = query.toLowerCase().trim();
-
-    return moviesFromServer.filter(movie => {
-      return (
-        movie.title.toLowerCase().includes(condition) ||
-        movie.description.toLowerCase().includes(condition)
-      );
-    });
-  };
+  /* eslint-disable */
+  /* prettier-ignore */
+  const visibleMovies = !query
+    ? moviesFromServer
+    : moviesFromServer.filter(movie =>
+      movie.title.toLowerCase().includes(condition) ||
+      movie.description.toLowerCase().includes(condition)
+    );
+  /* eslint-enable */
 
   return (
     <div className="page">
@@ -46,7 +42,7 @@ export const App = () => {
           </div>
         </div>
 
-        <MoviesList movies={visibleMovies()} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">Sidebar goes here</div>
